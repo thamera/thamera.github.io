@@ -6,6 +6,10 @@ var sprintreport_component_1 = require('./sprintreport/sprintreport.component');
 var appRoutes = [
     {
         path: '',
+        redirectTo: '/home', pathMatch: 'full'
+    },
+    {
+        path: 'home',
         component: home_component_1.homeComponent
     },
     {
@@ -15,6 +19,10 @@ var appRoutes = [
     {
         path: 'sprintreport',
         component: sprintreport_component_1.sprintreportComponent
+    },
+    {
+        path: '**',
+        redirectTo: '/home', pathMatch: 'full'
     }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

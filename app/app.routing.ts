@@ -8,6 +8,10 @@ import { sprintreportComponent } from './sprintreport/sprintreport.component';
 const appRoutes: Routes = [
     {
         path: '',
+        redirectTo: '/home', pathMatch: 'full'
+    },
+    {
+        path: 'home',
         component: homeComponent
     },
     {
@@ -17,6 +21,10 @@ const appRoutes: Routes = [
     {
         path: 'sprintreport',
         component: sprintreportComponent
+    },
+    {
+        path: '**',
+        redirectTo: '/home', pathMatch: 'full'
     }
 ];
 
