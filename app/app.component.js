@@ -11,12 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var AppComponent = (function () {
     function AppComponent() {
-        var _this = this;
         this.title = 'Trello for Implementations';
         this.isCollapsed = true;
         this.secret = "";
         this.trelloAuthorize = new Promise(function (resolve, reject) {
-            _this.tFrame.authorize(function (res) {
+            t.authorize(function (res) {
                 return './auth?secret=' + res;
             }, { width: 600, height: 680 })
                 .then(function (token) {
@@ -28,10 +27,11 @@ var AppComponent = (function () {
         });
         console.dir(t);
         this.secret = t.secret;
-        console.log(this.secret);
+        console.log("secret: " + this.secret);
         //var Promise = TrelloPowerUp.Promise;
-        this.tFrame = TrelloPowerUp.iframe();
+        //this.tFrame = TrelloPowerUp.iframe();
         this.trelloAuthorize.then(function (res) {
+            console.log("done trelloAuthorize");
             console.dir(res);
         });
     }

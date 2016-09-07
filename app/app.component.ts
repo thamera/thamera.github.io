@@ -15,18 +15,19 @@ export class AppComponent {
     constructor() {
         console.dir(t);
         this.secret = t.secret;
-        console.log(this.secret);
+        console.log("secret: " + this.secret);
 
         //var Promise = TrelloPowerUp.Promise;
-        this.tFrame = TrelloPowerUp.iframe();
+        //this.tFrame = TrelloPowerUp.iframe();
         this.trelloAuthorize.then((res) => {
+            console.log("done trelloAuthorize");
             console.dir(res);
         });
 
     }
 
     trelloAuthorize = new Promise((resolve, reject) => {
-        this.tFrame.authorize((res: any) => {
+        t.authorize((res: any) => {
             return './auth?secret=' + res;
         }, { width: 600, height: 680 })
             .then((token: any) => {
