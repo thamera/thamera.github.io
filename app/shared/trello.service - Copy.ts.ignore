@@ -1,0 +1,158 @@
+﻿import { Injectable } from '@angular/core';
+
+@Injectable()
+export class TrelloService {
+    public token: string;
+    public key: string;
+    private storagePrefix: string = "trello_";
+    private useLocalStore: boolean = false;
+    deferred: Object = {};
+    ready: Object = {};
+
+//user.authenticate then success functiton
+    constructor() {
+        if (localStorage) {
+            this.useLocalStore = true;
+        }
+
+    }
+
+    authorize(options: Options) {
+
+        var k: any;
+        var persistToken: any;
+        var ref: any;
+        var regexToken:any = /[&#]?token=([0-9a-f]{64})/;
+        var scope: any;
+        var v: any;
+        
+
+        if (options.persist) {
+            if (this.token == null) {
+                this.token = this.readStorage("token");
+            }
+        }
+
+        if (this.token == null) {
+            this.token = (ref = regexToken.exec(location.hash)) != null ? ref[1] : void 0;
+        }
+
+        if (this.authorized()) {
+            persistToken(options.persist);
+            location.hash = location.hash.replace(regexToken, "");
+            return typeof options.success === "function" ? options.success() : void 0;
+        }        
+        if (!options.interactive) {
+            return typeof options.error === "function" ? options.error() : void 0;
+        }
+        scope = (
+            () => {
+                var results: string = "";
+                for (k in options.scope) {
+                    v = options.scope[k];
+                    if (v) {
+                        results += "," + k;
+                    }
+                }
+                return results;
+            }
+        );
+
+        switch (options.type) {
+            case "popup":
+                (
+                    () => {
+                        var authWindow, height, left, origin, receiveMessage, ref1, top, width;
+                        this.waitUntil("authorized", () => {
+                            var authCallBack = (isAuthorized: boolean) => {
+                                if(isAuthorized) {
+                                    persistToken();
+                                    return typeof options.success === "function" ? options.success() : void 0;
+                                } else {
+                                    return typeof options.error === "function" ? options.error() : void 0;
+                                }
+
+                            }
+                            return (isAuthorized) => {
+                                if (isAuthorized) {
+                                    persistToken();
+                                    return typeof options.success === "function" ? options.success() : void 0;
+                                } else {
+                                    return typeof options.error === "function" ? options.error() : void 0;
+                                }
+                            };
+                        }
+                        )
+                    }
+                )
+        }
+        //return Promise
+    }
+
+    persistToken(persist:boolean) {
+        if (persist && (this.token != null)) {
+            return this.writeStorage("token", this.token);
+        }
+    }
+
+    authorized() {
+        return this.token != null;
+    }
+
+    deauthorize() {
+        this.token = null;
+        this.writeStorage("token", this.token);
+    }
+
+    readStorage(key:string):string {
+        if (this.useLocalStore) {
+            return localStorage.getItem(key);
+        } else {
+            var nameEq = key + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0, max = ca.length; i < max; i++) {
+                var c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEq) === 0) return c.substring(nameEq.length, c.length);
+            }
+            return null;
+        }
+    }
+
+    writeStorage(key:string, value:string): void {
+        if (this.useLocalStore) {
+            if (value == null) {
+                localStorage.removeItem(key);
+            } else {
+                localStorage.setItem(key, value);
+            }
+        } else {
+            var exp = 30;
+            if (value == null) {
+                value = '';
+                exp = -1;
+            }
+            var date = new Date();
+            date.setTime(date.getTime() + (exp * 24 * 60 * 60 * 1000));
+            var expires = "; expires=" + date.toUTCString();
+            document.cookie = key + "=" + value + expires + "; path=/";
+        }
+    }
+
+    waitUntil(name: string, fx: ( a?: Object ) => any) {
+        if (this.ready[name] != null) {
+            return fx(this.ready[name]);
+        } else {
+            return (this.deferred[name] != null ? this.deferred[name] : []).push(fx);
+        }
+    }
+
+
+}
+
+class Options {
+    constructor(public type: string = "redirect", public persist: boolean = true, public interactive: boolean = true,
+        public scope: Object = { read: true, write: false, account: false }, public expiration: string = "30days",
+        public success: () => void, public error: () => void) {
+    }
+}

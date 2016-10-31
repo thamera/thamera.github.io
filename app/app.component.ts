@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { CollapseDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'Trello-4-Impl',
@@ -12,18 +13,9 @@ export class AppComponent {
     public secret: string = "";
     public tFrame: any;
 
-    constructor() {
+    constructor(public router: Router) { 
         console.dir(t);
         this.secret = t.secret;
-        console.log("secret: " + this.secret);
-
-        //var Promise = TrelloPowerUp.Promise;
-        //this.tFrame = TrelloPowerUp.iframe();
-        this.trelloAuthorize.then((res) => {
-            console.log("done trelloAuthorize");
-            console.dir(res);
-        });
-
     }
 
     trelloAuthorize = new Promise((resolve, reject) => {

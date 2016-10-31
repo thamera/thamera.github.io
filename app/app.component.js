@@ -9,8 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(router) {
+        this.router = router;
         this.title = 'Trello for Implementations';
         this.isCollapsed = true;
         this.secret = "";
@@ -27,13 +29,6 @@ var AppComponent = (function () {
         });
         console.dir(t);
         this.secret = t.secret;
-        console.log("secret: " + this.secret);
-        //var Promise = TrelloPowerUp.Promise;
-        //this.tFrame = TrelloPowerUp.iframe();
-        this.trelloAuthorize.then(function (res) {
-            console.log("done trelloAuthorize");
-            console.dir(res);
-        });
     }
     AppComponent = __decorate([
         core_1.Component({
@@ -41,7 +36,7 @@ var AppComponent = (function () {
             templateUrl: 'app/app.component.html',
             styleUrls: ['app/app.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());
