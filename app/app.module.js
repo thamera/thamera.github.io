@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var app_component_1 = require('./app.component');
 var auth_guard_1 = require('./shared/auth.guard');
@@ -23,7 +25,7 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, ng2_bootstrap_1.Ng2BootstrapModule, app_routing_1.routing],
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng2_bootstrap_1.Ng2BootstrapModule, app_routing_1.routing, http_1.HttpModule],
             providers: [
                 auth_guard_1.AuthGuard,
             ],

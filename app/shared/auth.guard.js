@@ -10,16 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var trello_service_1 = require('../shared/trello.service');
 //import { tokenNotExpired } from 'angular2-jwt';
 var AuthGuard = (function () {
     function AuthGuard(router) {
         this.router = router;
     }
     AuthGuard.prototype.canActivate = function () {
-        //if (tokenNotExpired()) {
-        //    return true;
-        //}
-        //this.router.navigate(['/trelloauth']);
+        if (trello_service_1.validUserToken()) {
+            return true;
+        }
+        this.router.navigate(['trelloauth']);
         return false;
     };
     AuthGuard = __decorate([

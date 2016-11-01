@@ -1,18 +1,19 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
+import { validUserToken } from '../shared/trello.service';
 //import { tokenNotExpired } from 'angular2-jwt';
 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private router: Router) { }
+    constructor(public router: Router) { }
 
     canActivate() {
-        //if (tokenNotExpired()) {
-        //    return true;
-        //}
+        if (validUserToken()) {
+            return true;
+        }
 
-        //this.router.navigate(['/trelloauth']);
+        this.router.navigate(['trelloauth']);
         return false;
     }
 }

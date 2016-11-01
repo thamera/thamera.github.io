@@ -10,23 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var trello_service_1 = require('./shared/trello.service');
 var AppComponent = (function () {
-    function AppComponent(router) {
+    //public tFrame: any;
+    function AppComponent(router, trelloService) {
         this.router = router;
+        this.trelloService = trelloService;
         this.title = 'Trello for Implementations';
-        this.isCollapsed = true;
+        //public isCollapsed: boolean = true;
         this.secret = "";
-        this.trelloAuthorize = new Promise(function (resolve, reject) {
-            t.authorize(function (res) {
-                return './auth?secret=' + res;
-            }, { width: 600, height: 680 })
-                .then(function (token) {
-                console.log("token:" + token);
-                return (token);
-            })
-                .then(resolve)
-                .done();
-        });
         console.dir(t);
         this.secret = t.secret;
     }
@@ -34,9 +26,10 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'Trello-4-Impl',
             templateUrl: 'app/app.component.html',
-            styleUrls: ['app/app.component.css']
+            styleUrls: ['app/app.component.css'],
+            providers: [trello_service_1.TrelloService]
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, trello_service_1.TrelloService])
     ], AppComponent);
     return AppComponent;
 }());

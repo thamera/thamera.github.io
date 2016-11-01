@@ -1,14 +1,23 @@
 ﻿<h2>
     {{title}}
 </h2>
+<p>This app requires authentication with your Trello account in order to take actions and/or report on various elements of your Trello boards.  To Authenticate with Trello, select an appropriate expiration timeframe (how long you authorize this app to have access to Trello before requiring new authentication) then click the Authorize button.</p>
+<form #f="ngForm" novalidate>
+    <div class="form-group">
+        <label for="expiration">Expiration</label>
+        <select name="expiration" [(ngModel)]="authform.expiration" required class="form-control">
+            <option *ngFor="let type of expirationtypes" [value]="type.value">
+                {{type.display}}
+            </option>
+        </select>
+    </div>
+    <button type="button" class="btn btn-success btn-lg" (click)="authorize()">Authorize</button>
+</form>
+<button type="button" class="btn btn-danger btn-lg" (click)="deauthorize()">De-authorize</button>
+<br />
+Current Authentication Start and Duration: {{userTokenDate}} - {{userTokenExpiration}}
 <div class="row">
     <div class="col-xs-4 col-xs-offset-4">
-        <button type="button" class="btn btn-success btn-lg btn-block" (click)="authorize()">Authorize</button>
-    </div>
-    
-</div>
-<div class="row">
-    <div class="col-xs-4 col-xs-offset-4">
-        <button type="button" class="btn btn-danger btn-lg btn-block" (click)="deauthorize()">De-authorize</button>
-    </div>
+        <button type="button" class="btn btn-danger btn-lg" (click)="testing()">test</button>
+    </div>    
 </div>

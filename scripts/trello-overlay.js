@@ -26,4 +26,4 @@ document.addEventListener('keyup', function (e) {
     }
 });
 
-console.dir(t);
+//console.dir(t);

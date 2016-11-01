@@ -9,12 +9,12 @@ import { cardprinterComponent } from './cardprinter/cardprinter.component';
 import { sprintreportComponent } from './sprintreport/sprintreport.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', component: trelloauthComponent },
     { path: 'trelloauth', component: trelloauthComponent },
     { path: 'home',           component: homeComponent },
-    { path: 'cardprinter', component: cardprinterComponent},
+    { path: 'cardprinter', component: cardprinterComponent, canActivate: [AuthGuard] },
     { path: 'sprintreport', component: sprintreportComponent, canActivate: [AuthGuard] },
-    { path: '**',               redirectTo: '/home', pathMatch: 'full' }
+    { path: '**', component: trelloauthComponent } //redirectTo: '/home', pathMatch: 'full' }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, {
