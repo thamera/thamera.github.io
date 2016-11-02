@@ -20,6 +20,7 @@ var AppComponent = (function () {
         //public isCollapsed: boolean = true;
         this.secret = "";
         console.dir(t);
+        console.dir(TrelloPowerUp);
         this.secret = t.secret;
     }
     AppComponent = __decorate([

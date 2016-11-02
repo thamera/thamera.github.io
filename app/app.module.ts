@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent }  from './app.component';
-
+import { Globals } from './app.globals';
 import { AuthGuard } from './shared/auth.guard';
 
 import { homeComponent } from './home/home.component';
@@ -20,6 +20,7 @@ import { routing } from './app.routing';
     imports: [BrowserModule, FormsModule, Ng2BootstrapModule, routing, HttpModule],
     providers: [
         AuthGuard,
+        Globals
     ],
     declarations: [AppComponent, trelloauthComponent, cardprinterComponent, sprintreportComponent, homeComponent],
     bootstrap: [AppComponent]

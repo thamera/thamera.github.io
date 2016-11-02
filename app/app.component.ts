@@ -17,6 +17,7 @@ export class AppComponent {
 
     constructor(public router: Router, public trelloService: TrelloService) { 
         console.dir(t);
+        console.dir(TrelloPowerUp);
         this.secret = t.secret;
     }
 
