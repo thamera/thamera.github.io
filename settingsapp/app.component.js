@@ -38,6 +38,8 @@ var AppComponent = (function () {
                 ])
                     .then(function (_a) {
                     var settings = _a[0];
+                    console.dir(this);
+                    console.dir(settings);
                     if (settings) {
                         //(<FormGroup>this.settingsForm)
                         //.setValue(existingSettings, { onlySelf: true });

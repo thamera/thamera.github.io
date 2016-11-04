@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
                     this.t.get('board', 'shared', 'settings')
                 ])
                     .then(function ([settings]) {
+                        console.dir(this);
+                        console.dir(settings);
                         if (settings) {
                             //(<FormGroup>this.settingsForm)
                             //.setValue(existingSettings, { onlySelf: true });
