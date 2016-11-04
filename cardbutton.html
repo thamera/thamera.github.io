@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="https://trello.com/power-ups/power-up.css" />
+    <style>
+        body {
+            color: #4d4d4d;
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .datepicker-select-date {
+            padding-right: 12px;
+        }
+        .datepicker-select-date, .datepicker-select-time {
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            float: left;
+            width: 50%;
+        }
+        .datepicker-select-label {
+            margin-bottom: 4px;
+        }
+    </style>
+    <script type="text/javascript" src="./scripts/cardbutton.js"></script>
+</head>
+<body>
+    <div id="hill-content" style="overflow:hidden">
+        <div id="hill-fields-startdate">
+            <label>Start Date</label>
+            <div class="datepicker-select u-clearfix">
+                <div class="datepicker-select-date">
+                    <label for="hill-start-date" >Date</label>
+                    <input type="date" id="hill-start-date">
+                </div>
+                <div class="datepicker-select-time">
+                    <label for="hill-start-time">Time</label>
+                    <input type="text" id="hill-start-time">
+                </div>
+            </div>
+        </div>
+        <div id="hill-fields-enddate">
+            <label>End Date</label>
+            <div class="datepicker-select u-clearfix">
+                <div class="datepicker-select-date">
+                    <label for="hill-end-date">Date</label>
+                    <input type="date" id="hill-end-date">
+                </div>
+                <div class="datepicker-select-time">
+                    <label for="hill-end-time">Time</label>
+                    <input type="text" id="hill-end-time">
+                </div>
+            </div>
+        </div>
+        <div id="hill-fields-completedate">
+            <label>Completed Date</label>
+            <div class="datepicker-select u-clearfix">
+                <div class="datepicker-select-date">
+                    <label for="hill-end-date">Date</label>
+                    <input type="date" id="hill-end-date">
+                </div>
+                <div class="datepicker-select-time">
+                    <label for="hill-end-time">Time</label>
+                    <input type="text" id="hill-end-time">
+                </div>
+            </div>
+        </div>
+        <div id="hill-fields-status">
+            <label>Milestone Status</label>
+            <select>
+                <option>On track</option>
+                <option>At Risk</option>
+                <option>Behind Schedule</option>
+            </select>
+        </div>
+        <div>
+            <button id="save" data-i18n-id="save" class="mod-primary">Save</button>
+        </div>
+    </div>
+</body>
+</html>
