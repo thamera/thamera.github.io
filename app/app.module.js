@@ -20,18 +20,22 @@ var home_component_1 = require('./home/home.component');
 var cardprinter_component_1 = require('./cardprinter/cardprinter.component');
 var sprintreport_component_1 = require('./sprintreport/sprintreport.component');
 var trelloauth_component_1 = require('./trello/trelloauth.component');
+var settings_component_1 = require('./settings/settings.component');
+var reportedlist_component_1 = require('./settings/reportedlist/reportedlist.component');
 var app_routing_1 = require('./app.routing');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng2_bootstrap_1.Ng2BootstrapModule, app_routing_1.routing, http_1.HttpModule],
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, ng2_bootstrap_1.Ng2BootstrapModule, app_routing_1.routing, http_1.HttpModule],
             providers: [
                 auth_guard_1.AuthGuard,
                 app_globals_1.Globals
             ],
-            declarations: [app_component_1.AppComponent, trelloauth_component_1.trelloauthComponent, cardprinter_component_1.cardprinterComponent, sprintreport_component_1.sprintreportComponent, home_component_1.homeComponent],
+            declarations: [app_component_1.AppComponent, trelloauth_component_1.trelloauthComponent, cardprinter_component_1.cardprinterComponent, sprintreport_component_1.sprintreportComponent, home_component_1.homeComponent,
+                settings_component_1.SettingsComponent, reportedlist_component_1.ReportedListComponent
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

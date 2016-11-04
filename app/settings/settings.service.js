@@ -21,7 +21,13 @@ var SettingsService = (function () {
         this.t = TrelloPowerUp.iframe();
     }
     SettingsService.prototype.getObservableSettings = function () {
+        console.log("settings.service > getObservableSettings");
+        console.dir(this.t);
         if (this.t) {
+            console.log("try to get the data");
+            this.t.get('board', 'shared', 'settings').then(function (result) {
+                console.log("got trello data?", result);
+            });
             var settingsRequest$ = Observable_1.Observable.fromPromise(this.t.get('board', 'shared', 'settings'))
                 .catch(this.handleError);
             return settingsRequest$;

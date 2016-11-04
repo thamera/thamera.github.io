@@ -18,7 +18,13 @@ export class SettingsService {
     }
 
     public getObservableSettings() {
+        console.log("settings.service > getObservableSettings");
+        console.dir(this.t);
         if (this.t) {
+            console.log("try to get the data");
+            this.t.get('board', 'shared', 'settings').then(function (result:any) {
+                console.log("got trello data?", result);
+            });
             let settingsRequest$ = Observable.fromPromise(this.t.get('board', 'shared', 'settings'))
                 .catch(this.handleError);
 

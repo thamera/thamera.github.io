@@ -7,6 +7,7 @@ import { trelloauthComponent } from './trello/trelloauth.component';
 import { homeComponent } from './home/home.component';
 import { cardprinterComponent } from './cardprinter/cardprinter.component';
 import { sprintreportComponent } from './sprintreport/sprintreport.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
     { path: '', component: trelloauthComponent },
@@ -14,7 +15,8 @@ const appRoutes: Routes = [
     { path: 'home',           component: homeComponent },
     { path: 'cardprinter', component: cardprinterComponent, canActivate: [AuthGuard] },
     { path: 'sprintreport', component: sprintreportComponent, canActivate: [AuthGuard] },
-    { path: '**', component: trelloauthComponent } //redirectTo: '/home', pathMatch: 'full' }
+    { path: 'settings', component: SettingsComponent },
+    { path: '**', component: trelloauthComponent }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, {

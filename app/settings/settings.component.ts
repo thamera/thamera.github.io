@@ -5,11 +5,11 @@ import { SettingsService } from './settings.service';
 
 @Component({
     selector: 'Trello-4-Impl-Settings',
-    templateUrl: 'settingsapp/app.component.html',
-    styleUrls: ['settingsapp/app.component.css'],
+    templateUrl: 'app/settings/settings.component.html',
+    styleUrls: ['app/settings/settings.component.css'],
     providers: [SettingsService]
 })
-export class AppComponent implements OnInit {
+export class SettingsComponent implements OnInit {
     title = 'Settings';
     public settingsForm: FormGroup;
     public submitted: boolean;
@@ -26,14 +26,24 @@ export class AppComponent implements OnInit {
                 startDate: [''],
                 endDate: []
             }),
-            reportedList: this.formBuilder.array([])
+            reportedLists: this.formBuilder.array([])
         });
 
+        console.log("Get settings...");
         this.settingsService.getObservableSettings()
-            .subscribe((data) => {
+            .subscribe((data:AppSettings) => {
                 console.dir(data);
                 (<FormGroup>this.settingsForm)
-                    .setValue(data, { onlySelf: true });
+                    .patchValue(data, { onlySelf: true });
+
+                data.reportedLists.forEach(
+                    (list: ReportedList) => {
+                        const control = <FormArray>this.settingsForm.controls['reportedLists'];
+                        control.push(this.formBuilder.group(list));
+                    } 
+                );
+
+                console.dir(this.settingsForm);
             },
             error => console.log("Error", error),
             () => console.log("Got settings service data"));
@@ -58,11 +68,16 @@ export class AppComponent implements OnInit {
     }
 
     addReportedList(listname: string, listId: string, order: number) {
-        const control = <FormArray>this.settingsForm.controls['reportedList'];
-        let reportedList: ReportedList = {
-            listName: listname,
-            listId: listId,
-            order: order, 
+        const control = <FormArray>this.settingsForm.controls['reportedLists'];
+        let reportedList = {
+            listName: [listname],
+            listId: [listId],
+            order: [order],
+            displayName: ["", [Validators.required, Validators.minLength(5)]], 
+            GroupByLabels: [false],
+            showCheckLists: [false],
+            showDescription: [false],
+            showComments: [false]
         }
         control.push(this.formBuilder.group(reportedList));
     }
@@ -72,7 +87,7 @@ export class AppComponent implements OnInit {
     }
 
     removeReportedList(i: number) {
-        const control = <FormArray>this.settingsForm.controls['reportedList'];
+        const control = <FormArray>this.settingsForm.controls['reportedLists'];
         control.removeAt(i)
     }
 
@@ -83,7 +98,4 @@ export class AppComponent implements OnInit {
         myFormStatusChanges$.subscribe(x => this.events.push({ event: 'STATUS_CHANGED', object: x }));
         myFormValueChanges$.subscribe(x => this.events.push({ event: 'VALUE_CHANGED', object: x }));
     }
-
-    
-
 }
