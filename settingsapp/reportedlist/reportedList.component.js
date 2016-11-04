@@ -9,24 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
-var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
-var app_component_1 = require('./app.component');
-var reportedList_Component_1 = require('./reportedlist/reportedlist.component');
-var AppModule = (function () {
-    function AppModule() {
+var ReportedListComponent = (function () {
+    function ReportedListComponent() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, ng2_bootstrap_1.Ng2BootstrapModule],
-            providers: [],
-            declarations: [app_component_1.AppComponent, reportedList_Component_1.ReportedListComponent],
-            bootstrap: [app_component_1.AppComponent]
+    __decorate([
+        core_1.Input('group'), 
+        __metadata('design:type', forms_1.FormGroup)
+    ], ReportedListComponent.prototype, "reportedListForm", void 0);
+    ReportedListComponent = __decorate([
+        core_1.Component({
+            selector: 'reportedList',
+            templateUrl: 'reportedlist.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], ReportedListComponent);
+    return ReportedListComponent;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.ReportedListComponent = ReportedListComponent;
+//# sourceMappingURL=reportedlist.component.js.map

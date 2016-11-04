@@ -22,6 +22,32 @@
                         Test is invalid (required).
                     </small>
                 </div>
+                <div class="form-group" formGroupName="currentsprint">
+                    <label for="sprintnumber">Postcode</label>
+                    <input id="sprintnumber" type="number" class="form-control" formControlName="number">
+                    <label for="sprintstart">Start Date</label>
+                    <input id="sprintstart" type="date" class="form-control" formControlName="startDate" />
+                    <label for="sprintend">End Date</label>
+                    <input id="sprintend" type="date" class="form-control" formControlName="endDate" />
+                </div>
+                <div formArrayName="reportedLists">
+                    <div *ngFor="let reportedList of settingsForm.controls.reportedLists.controls; let i=index" class="panel panel-default">
+                        <!-- header-->
+                        <div class="panel-heading">
+                            <span>List {{i + 1}}</span>
+                            <span class="glyphicon glyphicon-remove pull-right" *ngIf="settingsForm.controls.reportedLists.controls.length > 1" (click)="removeReportedList(i)"></span>
+                        </div>
+                        <!-- array index-->
+                        <div class="panel-body" [formGroupName]="i">
+                            <reportedList [group]="settingsForm.controls.reportedLists.controls[i]"></reportedList>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-20">
+                    <a (click)="addReportedList('name', '123', 1)" style="cursor: default">
+                        Add another list +
+                    </a>
+                </div>
                 <button type="submit" class="btn btn-default">Submit</button>
                 <div class="margin-20">
                     <div> Form Details:</div>

@@ -10,53 +10,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
+var settings_service_1 = require('../app/shared/settings.service');
 var AppComponent = (function () {
-    //test: AbstractControl;
-    function AppComponent(formBuilder) {
+    function AppComponent(formBuilder, settingsService) {
         this.formBuilder = formBuilder;
+        this.settingsService = settingsService;
         this.title = 'Settings';
         this.events = [];
-        this.Promise = TrelloPowerUp.Promise;
-        this.t = TrelloPowerUp.iframe();
     }
     AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.settingsForm = this.formBuilder.group({
             test: ['TESTING', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             currentsprint: this.formBuilder.group({
-                number: [0],
+                number: [1],
                 startDate: [''],
                 endDate: []
-            })
+            }),
+            reportedList: this.formBuilder.array([])
         });
-        //TODO:  hookup service with existing data
-        // (<FormGroup>this.settingsForm)
-        //     .setValue(existingSettings, { onlySelf: true });  //where existingSettings is the incoming data model from trello.
-        if (this.t) {
-            this.t.render(function () {
-                return Promise.all([
-                    this.t.get('board', 'shared', 'settings')
-                ])
-                    .then(function (_a) {
-                    var settings = _a[0];
-                    console.dir(this);
-                    console.dir(settings);
-                    if (settings) {
-                        //(<FormGroup>this.settingsForm)
-                        //.setValue(existingSettings, { onlySelf: true });
-                        console.log(settings);
-                    }
-                })
-                    .then(function () {
-                    //t.sizeTo('#content')
-                    //    .done();
-                });
-            });
-        }
+        this.settingsService.getObservableSettings()
+            .subscribe(function (data) {
+            console.dir(data);
+            _this.settingsForm
+                .setValue(data, { onlySelf: true });
+        }, function (error) { return console.log("Error", error); }, function () { return console.log("Got settings service data"); });
         // subscribe to form changes  
         this.subscribeToFormChanges();
         // Update single value
-        this.settingsForm.controls['test']
-            .setValue('Test2', { onlySelf: true });
+        //(<FormControl>this.settingsForm.controls['test'])
+        //    .setValue('Test2', { onlySelf: true });
+    };
+    AppComponent.prototype.onSubmit = function (model, isValid) {
+        this.submitted = true;
+        this.settingsService.saveSettings(model)
+            .subscribe(function (data) { return console.dir(data); }, function (error) { return console.log("Error", error); }, function () { return console.log("Saved settings service data"); });
+        //.then(function () {
+        //    t.closePopup();
+        //});
+    };
+    AppComponent.prototype.addReportedList = function (listname, listId, order) {
+        var control = this.settingsForm.controls['reportedList'];
+        var reportedList = {
+            listName: listname,
+            listId: listId,
+            order: order,
+        };
+        control.push(this.formBuilder.group(reportedList));
+    };
+    AppComponent.prototype.moveReportedList = function (i, position) {
+    };
+    AppComponent.prototype.removeReportedList = function (i) {
+        var control = this.settingsForm.controls['reportedList'];
+        control.removeAt(i);
     };
     AppComponent.prototype.subscribeToFormChanges = function () {
         var _this = this;
@@ -65,21 +71,14 @@ var AppComponent = (function () {
         myFormStatusChanges$.subscribe(function (x) { return _this.events.push({ event: 'STATUS_CHANGED', object: x }); });
         myFormValueChanges$.subscribe(function (x) { return _this.events.push({ event: 'VALUE_CHANGED', object: x }); });
     };
-    AppComponent.prototype.onSubmit = function (model, isValid) {
-        this.submitted = true;
-        console.log(model, isValid);
-        if (this.t) {
-            this.t.set('board', 'shared', 'settings', model);
-        }
-    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'Trello-4-Impl-Settings',
             templateUrl: 'settingsapp/app.component.html',
             styleUrls: ['settingsapp/app.component.css'],
-            providers: []
+            providers: [settings_service_1.SettingsService]
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, settings_service_1.SettingsService])
     ], AppComponent);
     return AppComponent;
 }());

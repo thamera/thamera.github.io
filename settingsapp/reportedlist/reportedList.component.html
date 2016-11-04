@@ -1,0 +1,10 @@
+﻿<div [formGroup]="reportedListForm">
+    <div class="form-group">
+        <label>Display Name</label>
+        <input type="text" class="form-control" formControlName="street">
+        <!--display error message if street is not valid-->
+        <small [hidden]="reportedListForm.controls.dislplayName.valid" class="text-danger">
+            Display Name is required
+        </small>
+    </div>
+</div>
