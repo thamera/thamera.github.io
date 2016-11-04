@@ -9,7 +9,7 @@ import { AppSettings } from './settings.interface';
     providers: []
 })
 export class AppComponent implements OnInit {
-    title = 'Trello for Implementations - Settings';
+    title = 'Settings';
     public settingsForm: FormGroup;
     public submitted: boolean;
     public events: any[] = [];

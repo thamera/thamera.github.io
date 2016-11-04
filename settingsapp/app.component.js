@@ -14,7 +14,7 @@ var AppComponent = (function () {
     //test: AbstractControl;
     function AppComponent(formBuilder) {
         this.formBuilder = formBuilder;
-        this.title = 'Trello for Implementations - Settings';
+        this.title = 'Settings';
         this.events = [];
         this.Promise = TrelloPowerUp.Promise;
         this.t = TrelloPowerUp.iframe();
